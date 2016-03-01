@@ -1,9 +1,13 @@
 // *************Variables / querySelectors
 
+var inputEl = document.querySelector("input")
 var containerBox = document.querySelector("#container")
 var profileBox = document.querySelector("#profColumn")
 var repoBox = document.querySelector('#repoColumn') 
 var baseURL = "https://api.github.com/users/txsadamwest"
+var apikey = "?access_token=8a09eb6410f781beeb61b1e916948760bddfb936"
+
+var searchBaseUrl = "https://api.github.com/users/"
 
 console.log("werd up!")
 
@@ -13,34 +17,23 @@ var repoPromise = $.getJSON(baseURL + '/repos')
 // *********Profile Promise 
 
 var fetchProfileData = function(jsonData) {
-  // $.getJSON("https://api.github.com/users/txsadamwest").then(function(d){
     console.log(jsonData)
-    // var el = '#container'  
-    // console.log(d)
-    // var ghProfile = d.results
 
     var htmlStr = ''
 
-    // for(var i = 0; i < jsonObj.length; i++){
        var p = jsonData
        
        htmlStr += '<img src="' + p.avatar_url + '">'
        htmlStr += '<h1>'+p.name +'</h1>'
        htmlStr += '<h2>'+p.login +'</h2>'
-       // htmlStr += '<ul>'
-       // htmlStr +=    "<li>"+ p.email +"</li>"
-       // htmlStr +=    "<li>"+ p.website+"</li>"
-       // htmlStr +=    "<li>"+ p.facebook_id+"</li>"
-       // htmlStr +=    "<li> "+ p.twitter_id+"</li>"
-       // htmlStr += '</ul>'
-       // htmlStr += '<h5> Term End'+p.term_end+'</h5>'
-       // htmlStr += '</div>'
+       htmlStr +=    "<div class='dateJoined'><i class='fa fa-clock-o'></i>Joined on Nov 24,2015</div>"
+       htmlStr +=    "<div class='profileStats'> # # # </div>"
     
     console.log(htmlStr)
     profColumn.innerHTML = htmlStr
   }
 
-profilePromise.then(fetchProfileData)
+//profilePromise.then(fetchProfileData)
 // *********Repo Promise
 
 
@@ -58,13 +51,11 @@ var fetchRepoData = function(jsonData) {
        console.log(p)
 
        htmlStr += '<div class="repos">'
-      
        // htmlStr += '<h2><a href="'+p.html_url +'"</a></h2>'
        htmlStr += '<ul>'
-
        // htmlStr += '<li>"Repo Name"</li>'
-       htmlStr += '<li><a href="/TxsAdamWest/Day16colorClock">'+p.name +'</a></li>'
-       htmlStr +=    "<li>Updated 6 days ago</li>"
+       htmlStr += '<li><a href="'+p.clone_url+'">'+p.name +'</a><br><br>Updated 6 days ago</li>'
+       // htmlStr +=    "<li>Updated 6 days ago</li>"
        // htmlStr +=    "<li>"+ p.facebook_id+"</li>"
        // htmlStr +=    "<li> "+ p.twitter_id+"</li>"
        htmlStr += '</ul>'
@@ -76,27 +67,46 @@ var fetchRepoData = function(jsonData) {
   }
 }
 
-repoPromise.then(fetchRepoData)
+//repoPromise.then(fetchRepoData)
 
 // *************Search Function 
 
-var inputEl = document.querySelector("input")
-
-var doRequest = function(searchQuery) {
-    var fullUrl = baseUrl + searchQuery + apiKey
-    var searchPromise = $.getJSON(fullUrl)
-    searchPromise.then(showData)
-}
 
 
-var userSearch = function(keyEvent) {
+// This stores the input text and clears it out when user hits 'Enter'
+var inputToUrl = function(keyEvent) {
   var inputEl = keyEvent.target
   if (keyEvent.keyCode === 13) {
-    var searchQuery = inputEl.value
+    var userName = inputEl.value
     inputEl.value = ""
-    doRequest(searchQuery)
+    location.hash = userName
   }
-
 }
 
-inputEl.addEventListener("keydown", userSearch)
+// console.log(userName) 
+
+var doRequest = function(userName) {
+    var fullUrl = searchBaseUrl + userName + apikey
+    console.log(fullUrl)
+    var userNamePromise = $.getJSON(fullUrl)
+    userNamePromise.then(fetchProfileData)
+
+    var reposUrl = searchBaseUrl + userName + '/repos' + apikey
+    var userReposPromise = $.getJSON(reposUrl)
+    userReposPromise.then(fetchRepoData)
+}
+
+var controller = function() {
+  var newRepoHTMLstring = ""
+  var hash = location.hash.substr(1)
+  userName = hash
+    doRequest(hash)
+}
+
+inputEl.addEventListener("keydown", inputToUrl)
+
+window.addEventListener("hashchange",controller)
+
+console.log(inputToUrl)
+
+
