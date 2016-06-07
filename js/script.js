@@ -5,7 +5,7 @@ var containerBox = document.querySelector("#container")
 var profileBox = document.querySelector("#profColumn")
 var repoBox = document.querySelector('#repoColumn') 
 var baseURL = "https://api.github.com/users/txsadamwest"
-var apikey = "?access_token=8a09eb6410f781beeb61b1e916948760bddfb936"
+var apikey = "?access_token=741efd318e1c81f788922c7b0b3bd3cc48784419"
 
 var searchBaseUrl = "https://api.github.com/users/"
 
