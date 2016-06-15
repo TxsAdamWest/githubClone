@@ -6,7 +6,7 @@ var profileBox = document.querySelector("#profColumn")
 var repoBox = document.querySelector('#repoColumn') 
 var baseURL = "https://api.github.com/users/txsadamwest"
 
-// var key = GLOBAL_KEY
+var key = GLOBAL_KEY
 
 var name
 
