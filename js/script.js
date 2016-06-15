@@ -5,11 +5,32 @@ var containerBox = document.querySelector("#container")
 var profileBox = document.querySelector("#profColumn")
 var repoBox = document.querySelector('#repoColumn') 
 var baseURL = "https://api.github.com/users/txsadamwest"
-var apikey = "?access_token=741efd318e1c81f788922c7b0b3bd3cc48784419"
+
+// var key = GLOBAL_KEY
+
+var name
+
+try {
+  var key = GLOBAL_KEY
+}
+catch (e) {
+  var key = ' '
+}
+
+console.log(name)
+
+console.log('key>>>' + key)
+
+var url = 'https://api.github.com/users/txsadamwest/repos'
+
+var params = {
+  access_key: key
+}
 
 var searchBaseUrl = "https://api.github.com/users/"
 
 console.log("werd up!")
+
 
 var profilePromise = $.getJSON(baseURL)
 var repoPromise = $.getJSON(baseURL + '/repos')
@@ -51,15 +72,10 @@ var fetchRepoData = function(jsonData) {
        console.log(p)
 
        htmlStr += '<div class="repos">'
-       // htmlStr += '<h2><a href="'+p.html_url +'"</a></h2>'
        htmlStr += '<ul>'
-       // htmlStr += '<li>"Repo Name"</li>'
-       htmlStr += '<li><a href="'+p.clone_url+'">'+p.name +'</a><br><br>Updated 6 days ago</li>'
-       // htmlStr +=    "<li>Updated 6 days ago</li>"
-       // htmlStr +=    "<li>"+ p.facebook_id+"</li>"
-       // htmlStr +=    "<li> "+ p.twitter_id+"</li>"
+       htmlStr += '<li><a href="'+p.clone_url+'">'+p.name +'</a></li>'
+       htmlStr += '<li>Updated 6 days ago</li>'
        htmlStr += '</ul>'
-       // htmlStr += '<h5> Term End'+p.term_end+'</h5>'
        htmlStr += '</div>'
     
     console.log(htmlStr)
@@ -86,12 +102,14 @@ var inputToUrl = function(keyEvent) {
 // console.log(userName) 
 
 var doRequest = function(userName) {
-    var fullUrl = searchBaseUrl + userName + apikey
+    var fullUrl = searchBaseUrl + userName + key
     console.log(fullUrl)
+
     var userNamePromise = $.getJSON(fullUrl)
     userNamePromise.then(fetchProfileData)
 
-    var reposUrl = searchBaseUrl + userName + '/repos' + apikey
+    var reposUrl = searchBaseUrl + userName + '/repos' + key
+
     var userReposPromise = $.getJSON(reposUrl)
     userReposPromise.then(fetchRepoData)
 }
@@ -108,5 +126,6 @@ inputEl.addEventListener("keydown", inputToUrl)
 window.addEventListener("hashchange",controller)
 
 console.log(inputToUrl)
+
 
 
