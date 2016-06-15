@@ -17,9 +17,9 @@ catch (e) {
   var key = ' '
 }
 
-console.log(name)
+// console.log(name)
 
-console.log('key>>>' + key)
+// console.log('key>>>' + key)
 
 var url = 'https://api.github.com/users/txsadamwest/repos'
 
