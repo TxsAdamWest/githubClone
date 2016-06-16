@@ -1,13 +1,18 @@
-// *************Variables / querySelectors
+//DOM Nodes
 
 var inputEl = document.querySelector("input")
 var containerBox = document.querySelector("#container")
 var profileBox = document.querySelector("#profColumn")
 var repoBox = document.querySelector('#repoColumn') 
-var baseURL = "https://api.github.com/users/txsadamwest"
 
+//Base URLS
+var baseURL = "https://api.github.com/users/"
+var url = 'https://api.github.com/users/repos/'
+var searchBaseUrl = "https://api.github.com/users/"
+
+
+//Global key link from seperate file to avoid being banned from github. :o  
 var key = GLOBAL_KEY
-
 var name
 
 try {
@@ -17,25 +22,10 @@ catch (e) {
   var key = ' '
 }
 
-// console.log(name)
-
-// console.log('key>>>' + key)
-
-var url = 'https://api.github.com/users/txsadamwest/repos'
-
 var params = {
   access_key: key
 }
 
-var searchBaseUrl = "https://api.github.com/users/"
-
-console.log("werd up!")
-
-
-var profilePromise = $.getJSON(baseURL)
-var repoPromise = $.getJSON(baseURL + '/repos')
-
-// *********Profile Promise 
 
 var fetchProfileData = function(jsonData) {
     console.log(jsonData)
@@ -54,16 +44,8 @@ var fetchProfileData = function(jsonData) {
     profColumn.innerHTML = htmlStr
   }
 
-//profilePromise.then(fetchProfileData)
-// *********Repo Promise
-
 
 var fetchRepoData = function(jsonData) {
-  // $.getJSON("https://api.github.com/users/txsadamwest").then(function(d){
-    console.log(jsonData)
-    // var el = '#container'  
-    // console.log(d)
-    // var ghProfile = d.results
 
     var htmlStr = ''
 
@@ -83,49 +65,62 @@ var fetchRepoData = function(jsonData) {
   }
 }
 
-//repoPromise.then(fetchRepoData)
+//Search Function //
 
-// *************Search Function 
-
-
-
-// This stores the input text and clears it out when user hits 'Enter'
 var inputToUrl = function(keyEvent) {
   var inputEl = keyEvent.target
   if (keyEvent.keyCode === 13) {
+    // Captures the user's input value.
     var userName = inputEl.value
+    
+    // This stores the input text and clears it out when user hits 'Enter'/
     inputEl.value = ""
+
+    // Now passing the user's input into our url.
     location.hash = userName
   }
-}
-
-// console.log(userName) 
+} 
 
 var doRequest = function(userName) {
+    
+    //Create our full url using our Base, plust the username entered by the user, and our api key to allow us access.
     var fullUrl = searchBaseUrl + userName + key
-    console.log(fullUrl)
-
-    var userNamePromise = $.getJSON(fullUrl)
-    userNamePromise.then(fetchProfileData)
-
     var reposUrl = searchBaseUrl + userName + '/repos' + key
-
+    
+    //Submit our request for data.
+    var userNamePromise = $.getJSON(fullUrl)
     var userReposPromise = $.getJSON(reposUrl)
+
+    //Declare the function that will run once data is ready.
+    userNamePromise.then(fetchProfileData)
     userReposPromise.then(fetchRepoData)
+}
+
+function renderHomeView() {
+  console.log("Controller invoked")
+  repoBox.innerHTML = "Enter a username into the search bar to see that user's profile and repositories."
 }
 
 var controller = function() {
   var newRepoHTMLstring = ""
   var hash = location.hash.substr(1)
-  userName = hash
+
+  if (hash === "home"){
+    renderHomeView()
+  }
+
+  else {
+    userName = hash
     doRequest(hash)
+  }
 }
 
-inputEl.addEventListener("keydown", inputToUrl)
+location.hash = "home"
+controller()
 
+inputEl.addEventListener("keydown", inputToUrl)
 window.addEventListener("hashchange",controller)
 
-console.log(inputToUrl)
 
 
 
