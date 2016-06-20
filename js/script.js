@@ -35,9 +35,10 @@ var fetchProfileData = function(jsonData) {
        var p = jsonData
        
        htmlStr += '<img src="' + p.avatar_url + '">'
-       htmlStr += '<h1>'+p.name +'</h1>'
-       htmlStr += '<h2>'+p.login +'</h2>'
-       htmlStr +=    "<div class='dateJoined'><i class='fa fa-clock-o'></i>Joined on Nov 24,2015</div>"
+       htmlStr += '<h1>'+ p.name +'</h1>'
+       htmlStr += '<h2 class="userName">'+ p.login +'</h2>'
+       htmlStr += '<p class="bio">'+ p.bio + '</p>'
+       htmlStr +=    "<div class='dateJoined'><i class='fa fa-clock-o'></i>  Joined on " + p.created_at + '</div>'
        htmlStr +=    "<div class='profileStats'> # # # </div>"
     
     profColumn.innerHTML = htmlStr
