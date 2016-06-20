@@ -40,7 +40,6 @@ var fetchProfileData = function(jsonData) {
        htmlStr +=    "<div class='dateJoined'><i class='fa fa-clock-o'></i>Joined on Nov 24,2015</div>"
        htmlStr +=    "<div class='profileStats'> # # # </div>"
     
-    console.log(htmlStr)
     profColumn.innerHTML = htmlStr
   }
 
@@ -48,7 +47,6 @@ var fetchProfileData = function(jsonData) {
 var fetchRepoData = function(jsonData) {
 
     var htmlStr = ''
-
     for(var i = 0; i < jsonData.length; i++){
        var p = jsonData[i]
        console.log(p)
@@ -60,7 +58,6 @@ var fetchRepoData = function(jsonData) {
        htmlStr += '</ul>'
        htmlStr += '</div>'
     
-    console.log(htmlStr)
     repoColumn.innerHTML = htmlStr
   }
 }
@@ -102,7 +99,7 @@ function renderHomeView() {
 }
 
 var controller = function() {
-  var newRepoHTMLstring = ""
+
   var hash = location.hash.substr(1)
 
   if (hash === "home"){
@@ -110,15 +107,20 @@ var controller = function() {
   }
 
   else {
-    userName = hash
     doRequest(hash)
   }
 }
 
+// Gives us our default url to go to our home page.
 location.hash = "home"
+
+// Controller will route us to our intended page using the user's input.
 controller()
 
+// Gives our input bar the ability to store input.
 inputEl.addEventListener("keydown", inputToUrl)
+
+// Allows for routing based on hash change.
 window.addEventListener("hashchange",controller)
 
 
