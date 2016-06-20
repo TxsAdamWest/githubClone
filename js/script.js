@@ -49,16 +49,21 @@ var fetchRepoData = function(jsonData) {
 
     var htmlStr = ''
     for(var i = 0; i < jsonData.length; i++){
+
+
        var p = jsonData[i]
        console.log(p)
 
        htmlStr += '<div class="repos">'
        htmlStr += '<ul>'
-       htmlStr += '<li><a href="'+p.clone_url+'">'+p.name +'</a></li>'
+       htmlStr += '<li class="repoName"><a href="'+p.clone_url+'">'+p.name +'</a></li>'
+       htmlStr += '<p class="description">' + p.description + '</p>'
        htmlStr += '<li>Updated 6 days ago</li>'
        htmlStr += '</ul>'
        htmlStr += '</div>'
     
+       
+
     repoColumn.innerHTML = htmlStr
   }
 }

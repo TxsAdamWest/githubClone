@@ -1,27 +1,27 @@
 /* Default Styles  */
 
 * {
-	box-sizing:border-box;
-	margin:0;
+    box-sizing:border-box;
+    margin:0;
 }
 
 a {
-	color: #4078c0;
+    color: #4078c0;
     text-decoration: none;
 }
 
 /* Base Styles */
 
 body {
-	font: 13px / 1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-	min-width: 1020px;
+    font: 13px / 1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    min-width: 1020px;
     word-wrap: break-word;
 }
 
 /* Nav Bar */
 
 header {
-	height:60px;
+    height:60px;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 20px;
@@ -30,7 +30,7 @@ header {
 }
 
 #githubIcon{
-	float: left;
+    float: left;
     margin-right: 10px;
     margin-left: 20px;
     color: #333;
@@ -48,7 +48,7 @@ header {
 }
 
 .nav-links a {
-	padding: 4px 8px;
+    padding: 4px 8px;
     font-size: 13px;
     font-weight: bold;
     line-height: 20px;
@@ -58,9 +58,9 @@ header {
 /* Profile Column Styles */
 
 img {
-	height: 230px;
+    height: 230px;
     width: 230px;
-	display: inline-block;
+    display: inline-block;
     overflow: hidden;
     line-height: 1;
     vertical-align: middle;
@@ -68,18 +68,18 @@ img {
 }
 
 #container {
-	/*background-color: lightblue;*/
-	width:100%;
-	padding-top:20px;
+    /*background-color: lightblue;*/
+    width:100%;
+    padding-top:20px;
 }
 
 #profColumn {
-	/*background-color: lightsalmon;*/
-	width:25%;
-	margin:auto;
-	min-height:500px;
-	float: left;
-	padding-right: 10px;
+    /*background-color: lightsalmon;*/
+    width:25%;
+    margin:auto;
+    min-height:500px;
+    float: left;
+    padding-right: 10px;
     padding-left: 40px;
 }
 
@@ -101,20 +101,34 @@ img {
 /* Repos Column Styles */
 
 #repoColumn {
-	/*background-color: red;*/
-	float: left;
+    /*background-color: red;*/
+    float: left;
     padding-right: 10px;
     padding-left: 10px;
 }
 
 .columns {
-	display:inline-block;
-	vertical-align: top;
-	margin-top:2%;
+    display:inline-block;
+    vertical-align: top;
+    margin-top:2%;
+}
+
+.repoName {
+    margin: 0 0 8px;
+    font-size: 20px;
+    line-height: 1.2;
+}
+
+.description {
+    max-width: 550px;
+    margin-top: 8px;
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #666;
 }
 
 li {
-	margin: 0 0 8px;
+    margin: 0 0 8px;
     font-size: 14px;
     line-height: 1.2;
     position: relative;
@@ -125,15 +139,15 @@ li {
 }
 
 li a {
-	font-size:24px;
-	font:bolder;
+    font-size:24px;
+    font:bolder;
 }
 
 .dateJoined {
-	border-bottom: 1px solid #eee;
-	border-top: 1px solid #eee;
-	padding: 20px 0;
-	margin: 20px 0;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+    padding: 20px 0;
+    margin: 20px 0;
     font-size: 14px;
     text-align:left;
 }
